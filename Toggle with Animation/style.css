@@ -5,23 +5,13 @@
   margin-top: 20px;
   padding: 10px;
   border-radius: 8px;
-  opacity: 0;
+  opacity: 1;
   transition: opacity 0.5s ease-in-out;
   pointer-events: none;
-  color: aliceblue;
+  color: black;   /* Change this from aliceblue to black */
 }
+
 #toggleBtn{
     cursor: pointer;
 }
 
-/* Make visible */
-.show {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-/* Make hidden */
-.hide {
-  opacity: 0;
-  pointer-events: none;
-}
