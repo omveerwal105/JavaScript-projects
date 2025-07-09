@@ -1,0 +1,27 @@
+#box {
+  width: 200px;
+  height: 100px;
+  background-color: yellow;
+  margin-top: 20px;
+  padding: 10px;
+  border-radius: 8px;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  pointer-events: none;
+  color: aliceblue;
+}
+#toggleBtn{
+    cursor: pointer;
+}
+
+/* Make visible */
+.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Make hidden */
+.hide {
+  opacity: 0;
+  pointer-events: none;
+}
