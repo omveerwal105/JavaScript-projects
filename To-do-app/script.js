@@ -14,6 +14,10 @@ addTaskBtn.addEventListener("click", () => {
   const li = document.createElement("li");
   li.innerText = taskText;
 
+  li.addEventListener('click', () => {
+    li.classList.toggle('completed');
+  });
+
   // Optional: Add delete button
   const delBtn = document.createElement("span");
   delBtn.innerText = "❌";
