@@ -16,6 +16,10 @@ addBtn.addEventListener('click', () => {
     const li = document.createElement('li');
     li.innerText = taskText;
 
+    li.addEventListener('click' , ()=>{
+        li.classList.toggle('completed');
+    })
+
     // ✅ Create delete button
     const delBtn = document.createElement('button');  // ❌ use <button>, not <del>
     delBtn.innerText = '❌';
