@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <title>Form</title>
+</head>
+<body>
+    <form id="myForm">
+        <input type="text"  id="name" placeholder="enter the name">
+        <button type="submit" >Submit</button>
+    </form>
+
+    <script>
+        document.getElementById('myForm').addEventListener('submit',(e)=>{
+            e.preventDefault();
+            const name = document.getElementById('name').value.trim();
+            console.log('Name Entered:', name);
+            document.getElementById('name').value = ''
+        });
+    </script>
+</body>
+</html>
