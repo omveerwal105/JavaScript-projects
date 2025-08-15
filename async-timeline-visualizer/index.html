@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Async Timeline Visualizer</title>
+<style>
+  body { font-family: Arial; padding: 20px; }
+  .queue { display: inline-block; vertical-align: top; margin: 10px; }
+  .queue h3 { text-align: center; }
+  .box { border: 1px solid black; width: 200px; min-height: 100px; padding: 5px; }
+  .task { background: lightblue; margin: 3px; padding: 3px; border-radius: 4px; transition: all 0.5s; }
+</style>
+</head>
+<body>
+
+<h1>Async Timeline Visualizer</h1>
+
+<div class="queue">
+  <h3>Call Stack</h3>
+  <div class="box" id="stack"></div>
+</div>
+
+<div class="queue">
+  <h3>Microtask Queue</h3>
+  <div class="box" id="micro"></div>
+</div>
+
+<div class="queue">
+  <h3>Macrotask Queue</h3>
+  <div class="box" id="macro"></div>
+</div>
+
+<div class="queue">
+  <h3>Output</h3>
+  <div class="box" id="output"></div>
+</div>
+
+<button onclick="runSimulation()">Run Simulation</button>
+
+<script>
+function addTask(container, text) {
+  const el = document.createElement('div');
+  el.className = 'task';
+  el.textContent = text;
+  document.getElementById(container).appendChild(el);
+  return el;
+}
+
+function moveTask(task, targetContainer, delay) {
+  setTimeout(() => {
+    document.getElementById(targetContainer).appendChild(task);
+  }, delay);
+}
+
+function runSimulation() {
+  document.querySelectorAll('.box').forEach(box => box.innerHTML = '');
+
+  // Step 1: sync task in stack
+  let t1 = addTask('stack', 'console.log("Start")');
+  moveTask(t1, 'output', 1000);
+
+  // Step 2: async macro task (setTimeout)
+  let t2 = addTask('macro', 'setTimeout(...)');
+
+  // Step 3: async micro task (Promise)
+  let t3 = addTask('micro', 'Promise.then(...)');
+
+  // Step 4: macro runs after micro
+  moveTask(t3, 'stack', 2000);
+  moveTask(t3, 'output', 3000);
+
+  moveTask(t2, 'stack', 4000);
+  moveTask(t2, 'output', 5000);
+
+  // Step 5: final sync end
+  let t4 = addTask('stack', 'console.log("End")');
+  moveTask(t4, 'output', 6000);
+}
+</script>
+
+</body>
+</html>
