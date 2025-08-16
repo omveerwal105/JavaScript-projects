@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Loader </title>
+
+</head>
+<body>
+    <script>
+        function loadImage(url){
+            return new Promise((resolve , reject)=>{
+                const img = new Image();
+                img.src = url;
+
+                img.onload = () => resolve(img);
+                img.onerror = () => reject(new Error("Image failed to Load"))
+            });
+        }
+
+        loadImage("https://picsum.photos/200/300")
+                .then(img1 => {
+                    document.body.appendChild(img1);
+                    return loadImage('https://picsum.photos/250/300');
+                })
+                .then(img2 => {
+                    document.body.appendChild(img2);
+                    return loadImage('https://picsum.photos/300/300');
+                })
+                .then(img3 => {
+                    document.body.appendChild(img3);
+                })
+                .catch(err => console.error(err));
+    </script>
+    
+</body>
+</html>
