@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Clock</title>
+  </head>
+  <body>
+    <h2 id="clock">Loading...</h2>
+
+    <script>
+      function updateClock() {
+        const now = new Date();
+        const timeString = now.toLocaleTimeString();
+        document.getElementById("clock").textContent = timeString;
+      }
+      function delay(ms) {
+        return new Promise(resolve => setTimeout(resolve,ms))
+      }
+       delay(2000).then(()=>{
+        setInterval(updateClock , 1000);
+      updateClock();
+      });
+
+      
+    </script>
+  </body>
+</html>
