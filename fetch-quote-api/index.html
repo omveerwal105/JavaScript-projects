@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quotes</title>
+</head>
+<body>
+  <button id="fetchBtn">Fetch Quote</button>
+  <p id="quote"></p>
+  <div id="retryContainer"></div>
+
+  <script>
+    function delay(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    async function fetchQuote() {
+      const quoteEl = document.getElementById('quote');
+      const retryContainer = document.getElementById('retryContainer');
+
+      retryContainer.innerHTML = ""; // clear old retry button
+      quoteEl.textContent = "Loading...";
+
+      try {
+        // load 3 quotes one after another with 2s gap
+        for (let i = 1; i <= 3; i++) {
+          await delay(2000);
+          const res = await fetch('https://api.quotable.io/random');
+          if (!res.ok) throw new Error("Failed to fetch quote");
+
+          const data = await res.json();
+          quoteEl.textContent = `(${i}/3) "${data.content}" — ${data.author}`;
+        }
+      } catch (err) {
+        quoteEl.textContent = "❌ Could not fetch quote.";
+        console.error(err);
+
+        // Create "Try Again" button
+        const retryBtn = document.createElement("button");
+        retryBtn.textContent = "Try Again";
+        retryBtn.onclick = fetchQuote;
+        retryContainer.appendChild(retryBtn);
+      }
+    }
+
+    document.getElementById("fetchBtn").addEventListener("click", fetchQuote);
+  </script>
+</body>
+</html>
